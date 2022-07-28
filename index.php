@@ -18,7 +18,9 @@
     <iframe name="back" style="display:none;"></iframe>
     <div id="all">
         <div id="title">
-            <?= date("m 月 d 號 l") ?> | 今日瀏覽: 1 | 累積瀏覽: 36 </div>
+            <?= date("m 月 d 號 l") ?> | 今日瀏覽: 1 | 累積瀏覽: 36 
+            <a href="index.php" style="float:right">回首頁</a>
+        </div>
         <div id="title2">
 
         </div>
