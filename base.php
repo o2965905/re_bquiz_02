@@ -63,16 +63,54 @@ class DB{
 
         return $this->pdo->exec($sql);
     }
-    function del(){}
-    function math(){}
-    function q(){}
-    function dd(){}
-    function to(){}
+    function del($arg){
+        $sql="delete from $this->table where";
+            if(is_array($arg)){
+                foreach($arg as $key => $val){
+                    $tmp[]="`$key`='$val'";
+                }
+                $sql .= join(" && ",$tmp);
+            }else{
+                $sql .= " `id`='$arg'";
+            }
 
+            return $this->pdo->exec($sql);
+    }
+    function math($math,$col,...$arg){
+        $sql="select $math($col) from $this->table ";
+            if(isset($arg[0])){
+                if(is_array($arg[0])){
+                    foreach($arg[0] as $key => $val){
+                        $tmp[]="`$key`='$val'";
+                    }
+                    $sql .= " where " . join(" && ",$tmp);
+                }else{
+                    $sql .= $arg[0];
+                }
+            }
+            if(isset($arg[1])){
+                $sql .= $arg[1];
+            }
+
+            return $this->pdo->query($sql)->fetchColumn();
+    }
+    function q($sql){
+        return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
+    function dd($array){
+        echo "<pre>";
+        print_r($array);
+        echo "</pre>";
+    }
+    function to($url){
+        header('location:'.$url);
+    }
+
+
 
 $Total=new DB('total');
-print_r($Total->all());
+
 
 
 ?>
